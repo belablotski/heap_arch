@@ -32,7 +32,7 @@ The monitoring and alerting system is designed to handle large-scale infrastruct
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Data Sources  │    │   Collection     │    │   Message       │
 │                 │    │   Layer          │    │   Queue         │
-│ • Servers       │───▶│ • Pull Collectors│───▶│ • Kafka         │
+│ • Servers       │──▶│ • Pull Collectors│──▶│ • Kafka         │
 │ • Applications  │    │ • Push Agents    │    │ • Partitioned   │
 │ • Load Balancers│    │ • Health Checks  │    │   by Metric     │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
@@ -40,7 +40,7 @@ The monitoring and alerting system is designed to handle large-scale infrastruct
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Visualization │    │   Query Engine   │    │   Storage       │
 │                 │    │                  │    │   Layer         │
-│ • Dashboards    │◀───│ • Time-series    │◀───│ • Hot Storage   │
+│ • Dashboards    │◀──│ • Time-series    │◀──│ • Hot Storage   │
 │ • Grafana       │    │   Queries        │    │ • Warm Storage  │
 │ • Custom UIs    │    │ • Aggregations   │    │ • Cold Storage  │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
@@ -48,7 +48,7 @@ The monitoring and alerting system is designed to handle large-scale infrastruct
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
 │   Alerting      │    │   Alert Engine   │    │   Aggregation   │
 │   Channels      │    │                  │    │   Engine        │
-│                 │◀───│ • Rule Engine    │◀───│ • Real-time     │
+│                 │◀──│ • Rule Engine    │◀──│ • Real-time     │
 │ • Email         │    │ • Thresholds     │    │ • Batch         │
 │ • SMS/Phone     │    │ • Notifications  │    │ • Downsampling  │
 │ • PagerDuty     │    │ • Escalation     │    │ • Compression   │
