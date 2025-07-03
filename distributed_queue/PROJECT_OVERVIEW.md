@@ -5,11 +5,11 @@
 This distributed message queue architecture project contains comprehensive documentation and design artifacts:
 
 ```
-heap_arch/
-├── README.md                           # Project overview and quick start
-├── ARCHITECTURE.md                     # Core system architecture design
+distributed_queue/
+├── README.md                          # Project overview and quick start
+├── ARCHITECTURE.md                    # Core system architecture design
 └── docs/                              # Detailed documentation
-    ├── implementation-guide.md         # Implementation details with code examples
+    ├── implementation-guide.md        # Implementation details with code examples
     ├── api-reference.md               # Complete API documentation
     ├── performance-analysis.md        # Performance benchmarking framework
     ├── security-operations.md         # Security and operational procedures
