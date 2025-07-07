@@ -21,19 +21,19 @@ The distributed object store implements multiple layers of security:
 │                    External Threats                         │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 1: Network Perimeter (WAF, DDoS Protection)         │
+│   Layer 1: Network Perimeter (WAF, DDoS Protection)         │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 2: API Gateway (Rate Limiting, Auth)                │
+│   Layer 2: API Gateway (Rate Limiting, Auth)                │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 3: Application Security (RBAC, Input Validation)    │
+│   Layer 3: Application Security (RBAC, Input Validation)    │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 4: Data Security (Encryption, Access Control)       │
+│   Layer 4: Data Security (Encryption, Access Control)       │
 └─────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 5: Infrastructure Security (VPC, IAM, HSM)          │
+│   Layer 5: Infrastructure Security (VPC, IAM, HSM)          │
 └─────────────────────────────────────────────────────────────┘
 ```
 
