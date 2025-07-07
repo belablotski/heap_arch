@@ -35,9 +35,9 @@
                                    │
 ┌─────────────────────────────────────────────────────────────────┐
 │                       API Gateway                               │
-│  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐        │
-│  │  Auth Service │ │ Rate Limiting │ │ Request Router│        │
-│  └───────────────┘ └───────────────┘ └───────────────┘        │
+│  ┌───────────────┐ ┌───────────────┐ ┌────────────────┐         │
+│  │  Auth Service │ │ Rate Limiting │ │ Request Router │         │
+│  └───────────────┘ └───────────────┘ └────────────────┘         │
 └─────────────────────────────────────────────────────────────────┘
                                    │
         ┌──────────────────────────┼──────────────────────────┐
@@ -56,7 +56,7 @@
 │ │   Index   │ │        │ │   Coding    │ │        │ │   Disaster  │ │
 │ └───────────┘ │        │ └─────────────┘ │        │ │   Recovery  │ │
 └───────────────┘        └─────────────────┘        │ └─────────────┘ │
-                                                     └─────────────────┘
+                                                    └─────────────────┘
 ```
 
 ## 3. Core Components
@@ -132,7 +132,7 @@ Objects:
 
 #### PUT Operation:
 1. **API Gateway**: Validates request, authenticates user
-2. **Metadata Service**: Generates object ID, determines storage locations
+2. **Metadata Service**: Generates object ID, determines storage locations (???)
 3. **Storage Service**: 
    - Splits large objects into chunks (64MB)
    - Applies erasure coding (6+3)
