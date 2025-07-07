@@ -33,11 +33,11 @@ Our distributed object store implements privacy protection through multiple laye
 │                     Privacy Control Layer                       │
 ├─────────────────────────────────────────────────────────────────┤
 │ Data Classification │ Consent Management │ Access Controls      │
-│ Retention Policies   │ Audit Logging      │ Encryption           │
+│ Retention Policies  │ Audit Logging      │ Encryption           │
 └─────────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────────┐
 │                        API Gateway                              │
-│ Privacy Headers │ Request Validation │ Geographic Routing      │
+│ Privacy Headers │ Request Validation │ Geographic Routing       │
 └─────────────────────────────────────────────────────────────────┘
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Storage Services                            │
