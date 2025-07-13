@@ -8,13 +8,13 @@ The distributed file system is built on a microservices architecture optimized f
 ┌─────────────────────────────────────────────────────────────────┐
 │                         Client Layer                            │
 ├─────────────────┬─────────────────┬─────────────────────────────┤
-│   Web Clients   │  Mobile Apps    │     API Clients            │
+│   Web Clients   │  Mobile Apps    │     API Clients             │
 └─────────────────┴─────────────────┴─────────────────────────────┘
                                 │
 ┌─────────────────────────────────────────────────────────────────┐
 │                      Gateway Layer                              │
 ├─────────────────┬─────────────────┬─────────────────────────────┤
-│  Load Balancer  │  API Gateway    │   Session Manager          │
+│  Load Balancer  │  API Gateway    │   Session Manager           │
 └─────────────────┴─────────────────┴─────────────────────────────┘
                                 │
 ┌─────────────────────────────────────────────────────────────────┐
@@ -26,9 +26,25 @@ The distributed file system is built on a microservices architecture optimized f
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Storage Layer                               │
 ├─────────────────┬─────────────────┬─────────────────────────────┤
-│  Chunk Servers  │   Index Store   │      Cold Storage          │
+│  Chunk Servers  │   Index Store   │      Cold Storage           │
 └─────────────────┴─────────────────┴─────────────────────────────┘
 ```
+
+| Component            | Purpose / Function                                                                                   |
+|----------------------|-----------------------------------------------------------------------------------------------------|
+| **Client Layer**     | Interfaces for users and applications to interact with the file system (web, mobile, API clients).  |
+| **Gateway Layer**    | Entry point for requests; handles load balancing, API routing, and session management.              |
+| Load Balancer        | Distributes incoming traffic, provides failover, SSL, and DDoS protection.                          |
+| API Gateway          | Routes requests, handles authentication, protocol translation, and resilience features.              |
+| Session Manager      | Tracks client sessions, enforces consistency, manages connection state.                             |
+| **Service Layer**    | Core logic for metadata, deduplication, and compression.                                            |
+| Metadata Service     | Manages file system structure, metadata, chunk mapping, and consistency logs.                       |
+| Deduplication Service| Identifies and eliminates duplicate data chunks to save storage.                                    |
+| Compression Service  | Compresses data using adaptive algorithms based on data type and access patterns.                   |
+| **Storage Layer**    | Stores actual file data and indexes, manages data durability and tiering.                           |
+| Chunk Servers        | Store file chunks, handle replication, caching, and compaction.                                     |
+| Index Store          | Maintains indexes for fast lookup of files, chunks, and metadata.                                   |
+| Cold Storage         | Archives infrequently accessed data to cost-effective storage (e.g., S3/Glacier).                   |
 
 ## Core Architecture Components
 
