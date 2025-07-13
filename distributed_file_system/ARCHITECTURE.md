@@ -92,6 +92,68 @@ The distributed file system is built on a microservices architecture optimized f
 Hash(file_path) % num_shards → metadata_shard_id
 ```
 
+```mermaid
+flowchart TD
+    A[API Request: File Operation] --> B[Hash file_path to find shard]
+    B --> C[Route to Metadata Shard]
+    C --> D[Read/Write Metadata in PostgreSQL]
+    D --> E[Update etcd Coordination]
+    E --> F[Update Transaction Log]
+    F --> G[Respond to Client / Next Service]
+
+    style A fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style D fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    style F fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+```
+
+#### Metadata Database Overview
+
+The metadata database is the backbone of the file system's namespace and coordination. It is deployed as a sharded PostgreSQL cluster, where each shard consists of a primary server and two read replicas for high availability and read scaling. Failover is managed automatically using Patroni or similar orchestration tools.
+
+- **Primary Server**: Handles all writes and strong consistency operations.
+- **Read Replicas**: Serve read-only queries, offloading traffic from the primary.
+- **Sharding**: Each file path is mapped to a shard using consistent hashing.
+- **Coordination**: etcd is used for distributed coordination, leader election, and configuration management.
+
+**Deployment Example:**
+```
+Shard 1: pg-primary-1 (RW) + pg-replica-1a (RO) + pg-replica-1b (RO)
+Shard 2: pg-primary-2 (RW) + pg-replica-2a (RO) + pg-replica-2b (RO)
+...
+```
+
+#### Metadata Entity-Relation Diagram
+
+```mermaid
+erDiagram
+    FILES {
+        uuid id PK
+        text name
+        uuid parent_id FK
+        bigint size
+        timestamp created_at
+        timestamp updated_at
+        text permissions
+        text checksum
+    }
+    CHUNKS {
+        uuid id PK
+        uuid file_id FK
+        int chunk_index
+        text chunk_hash
+        bigint size
+        text storage_location
+    }
+    USERS {
+        uuid id PK
+        text username
+        text email
+        text role
+    }
+    FILES ||--o{ CHUNKS : contains
+    USERS ||--o{ FILES : owns
+```
+
 #### Deduplication Service
 - **Engine**: Content-Defined Chunking (CDC) with rolling hash
 - **Hash Algorithm**: SHA-256 for chunk fingerprints
@@ -126,12 +188,28 @@ Hash(file_path) % num_shards → metadata_shard_id
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Chunk Server Node                            │
 ├─────────────────┬─────────────────┬─────────────────────────────┤
-│   Write Cache   │   Read Cache    │     Compaction Engine      │
+│   Write Cache   │   Read Cache    │     Compaction Engine       │
 ├─────────────────┼─────────────────┼─────────────────────────────┤
-│   LSM Tree L0   │   LSM Tree L1   │     LSM Tree L2+           │
+│   LSM Tree L0   │   LSM Tree L1   │     LSM Tree L2+            │
 ├─────────────────┼─────────────────┼─────────────────────────────┤
-│     SSD Tier    │    HDD Tier     │      Cold Storage          │
+│     SSD Tier    │    HDD Tier     │      Cold Storage           │
 └─────────────────┴─────────────────┴─────────────────────────────┘
+```
+
+```mermaid
+flowchart TD
+    A[Client Upload] --> B[API Gateway]
+    B --> C[Metadata Service]
+    C --> D[Deduplication Service]
+    D --> E[Compression Service]
+    E --> F[Chunk Servers]
+    F --> G[Storage - SSD/HDD/Cold]
+    G --> H[Metadata Update]
+    H --> I[Indexes]
+
+    style A fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style F fill:#fff3e0,stroke:#fb8c00,stroke-width:2px
+    style G fill:#f1f8e9,stroke:#43a047,stroke-width:2px
 ```
 
 #### Index Store
