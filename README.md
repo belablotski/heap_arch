@@ -5,3 +5,4 @@
 3. [Distributed Object Store](./object_store/README.md)
 4. [Photo Storage](./photo_storage/README.md)
 5. [Distributed File System (DFS)](./distributed_file_system/README.md)
+6. [Agentic Device Fleet](./agentic_device_fleet/README.md)
