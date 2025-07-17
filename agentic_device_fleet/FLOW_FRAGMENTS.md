@@ -41,7 +41,7 @@ graph TD
 
     subgraph "AI Agent Service (Python/Flask)"
         Q -->|HTTP Request| E[API Endpoint];
-        E -->|Payload: '{"query": "..."}'| P[Query Processor];
+        E -->|Payload: JSON with query| P[Query Processor];
     end
 
     style U fill:#dff,stroke:#333,stroke-width:2px;
@@ -171,12 +171,12 @@ sequenceDiagram
 
 ## Fragment 8: The Final Synthesis
 
-The AI Agent now has the structured data it needs: `{"count": 15}`. This isn't a good answer for a human. The Agent performs its final and most important task: it synthesizes the data into a helpful, natural language response.
+The AI Agent now has the structured data it needs. This isn't a good answer for a human. The Agent performs its final and most important task: it synthesizes the data into a helpful, natural language response.
 
 ```mermaid
 graph TD
     subgraph "AI Agent Final Response Generation"
-        A["Tool Result: '{\"count\": 15}'"] --> B{LLM Synthesis};
+        A["Tool Result: JSON with count 15"] --> B{LLM Synthesis};
         C["Original Query: 'How many dead devices in Warehouse A?'"] --> B;
         B --> D["Final Answer:<br>'Currently, there are 15 dead devices in Warehouse A.'"];
     end
