@@ -48,9 +48,10 @@ flowchart TD
 See [Implementation Guide](docs/implementation-guide.md) for detailed setup instructions.
 
 ## Documentation
-
 - [Architecture Overview](ARCHITECTURE.md)
 - [Project Overview](PROJECT_OVERVIEW.md)
+- [Hitchhiker's Guide](HITCHHIKERS_GUIDE.md)
+- [Flow Fragments](FLOW_FRAGMENTS.md)
 - [Implementation Guide](docs/implementation-guide.md)
 - [API Reference](docs/api-reference.md)
 - [Deployment Guide](docs/deployment-guide.md)
