@@ -16,8 +16,8 @@ sequenceDiagram
     participant S3 Data Lake
 
     User->>+AI Agent: "How many dead devices in Warehouse A?"
-    AI Agent->>+MCP Server: Call Tool: `get_fleet_status(location='Warehouse A', status='dead')`
-    MCP Server->>+Tool: Execute: `get_fleet_status` with params
+    AI Agent->>+MCP Server: Call Tool: 'get_fleet_status(location=''Warehouse A'', status=''dead'')'
+    MCP Server->>+Tool: Execute: 'get_fleet_status' with params
     Tool->>+Trino: SELECT COUNT(*) FROM ... WHERE location = 'Warehouse A'
     Trino->>+S3 Data Lake: Read Parquet data files
     S3 Data Lake-->>-Trino: Return raw data rows
@@ -36,12 +36,12 @@ A user has a question. They send it as a simple string to the AI Agent's API end
 ```mermaid
 graph TD
     subgraph "User's Browser/CLI"
-        U[<font size=6>👨‍💻</font><br>User] --> Q{POST /query API Call};
+        U["👨‍💻<br>User"] --> Q{POST /query API Call};
     end
 
     subgraph "AI Agent Service (Python/Flask)"
         Q -->|HTTP Request| E[API Endpoint];
-        E -->|Payload: `{"query": "..."}`| P[Query Processor];
+        E -->|Payload: '{"query": "..."}'| P[Query Processor];
     end
 
     style U fill:#dff,stroke:#333,stroke-width:2px;
@@ -58,14 +58,14 @@ The AI Agent receives the query. It doesn't just look for keywords; it uses a La
 graph TD
     subgraph "AI Agent Core Logic"
         direction LR
-        A[User Query: "How many dead devices in Warehouse A?"] --> B{LLM Intent Analysis};
-        B -->|Identifies| C(Intent: `fleet_status`);
-        B -->|Extracts| D(Parameter: `location: 'Warehouse A'`);
-        B -->|Extracts| E(Parameter: `status: 'dead'`);
+        A["User Query: 'How many dead devices in Warehouse A?'"] --> B{LLM Intent Analysis};
+        B -->|Identifies| C("Intent: 'fleet_status'");
+        B -->|Extracts| D("Parameter: 'location: ''Warehouse A'''");
+        B -->|Extracts| E("Parameter: 'status: ''dead'''");
         C --> F[Tool Selection Logic];
         D --> F;
         E --> F;
-        F --> G[Selected Tool: `get_fleet_status`];
+        F --> G["Selected Tool: 'get_fleet_status'"];
     end
 
     style A fill:#cff,stroke:#333,stroke-width:2px;
@@ -124,9 +124,9 @@ The Python Tool receives the request. This is where the magic of data retrieval 
 ```mermaid
 graph TD
     subgraph "Tool Service (Python)"
-        A[Request Received<br>`{location: 'Warehouse A', ...}`] --> B{`get_fleet_status` function};
+        A["Request Received<br>{location: 'Warehouse A', ...}"] --> B{"'get_fleet_status' function"};
         B --> C{SQL Generation Logic};
-        C --> D["SQL:<br>`SELECT COUNT(*) ...` <br>`WHERE location = 'Warehouse A' ...`"];
+        C --> D["SQL:<br>'SELECT COUNT(*) ...' <br>'WHERE location = ''Warehouse A'' ...'"];
         D --> E{Trino Client};
         E --> F[Execute Query];
     end
@@ -146,7 +146,7 @@ sequenceDiagram
     participant T as Trino Query Engine
     participant S3 as S3 Data Lake
 
-    T->>S3: Read data from `s3://.../date=2025-07-16/`
+    T->>S3: Read data from 's3://.../date=2025-07-16/'
     Note right of T: Trino's query planner uses the<br>date and partitions to read<br>as little data as possible.
     S3-->>T: Returns raw data in Parquet format
 ```
@@ -163,8 +163,8 @@ sequenceDiagram
     participant MCP as MCP Server (Node.js)
     participant Agent as AI Agent (Python)
 
-    Tool-->>MCP: HTTP Response<br>Payload: `{"result": {"count": 15}}`
-    MCP-->>Agent: HTTP Response<br>Payload: `{"result": {"count": 15}}`
+    Tool-->>MCP: HTTP Response<br>Payload: '{"result": {"count": 15}}'
+    MCP-->>Agent: HTTP Response<br>Payload: '{"result": {"count": 15}}'
 ```
 
 ---
@@ -176,8 +176,8 @@ The AI Agent now has the structured data it needs: `{"count": 15}`. This isn't a
 ```mermaid
 graph TD
     subgraph "AI Agent Final Response Generation"
-        A[Tool Result: `{"count": 15}`] --> B{LLM Synthesis};
-        C[Original Query: "How many dead devices in Warehouse A?"] --> B;
+        A["Tool Result: '{\"count\": 15}'"] --> B{LLM Synthesis};
+        C["Original Query: 'How many dead devices in Warehouse A?'"] --> B;
         B --> D["Final Answer:<br>'Currently, there are 15 dead devices in Warehouse A.'"];
     end
 

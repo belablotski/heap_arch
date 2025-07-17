@@ -17,11 +17,11 @@ The main point is this: **Make it easy for humans to ask hard questions about a 
 Think of the application as a series of specialized droids, each doing its own job perfectly.
 
 1.  **The Data Pipeline (The Infinite Improbability Drive):**
-    *   **What it is:** A one-way street for data. Device heartbeats, which are just little blips of energy, get turned into `Kafka` messages. These messages are then neatly filed away in a giant cosmic storage unit called an `S3 Bucket`.
+    *   **What it is:** A one-way street for data. Device heartbeats, which are just little blips of energy, get turned into `Kafka` messages. These messages are then neatly filed away in a giant cosmic storage unit called an `S3 or GCS Bucket`.
     *   **Why it's there:** It takes chaotic, real-time events and turns them into an orderly, historical library. It's the source of all truth.
 
 2.  **Trino (The Restaurant at the End of the Universe):**
-    *   **What it is:** A universal waiter that can fetch any piece of data from the giant library (the S3 Bucket) when you ask for it using a special language (`SQL`).
+    *   **What it is:** A universal waiter that can fetch any piece of data from the giant library (the S3 or GCS Bucket) when you ask for it using a special language (`SQL`).
     *   **Why it's there:** It's impossibly fast and knows exactly where everything is. It's the engine that makes finding answers possible.
 
 3.  **The Tools (Your Towel):**
